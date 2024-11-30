@@ -55,8 +55,8 @@ export const ExpertiseTypewriter = () => {
           layout: { duration: 0.03, ease: 'easeOut' },
         }}
       >
-        <Card className="relative border-0 bg-gray-950/30 backdrop-blur-md ring-1 ring-white/10 overflow-hidden shadow-2xl">
-          <CardContent className="p-6 md:p-8">
+        <Card className="relative border-0 bg-gray-950/60 backdrop-blur-md ring-1 ring-white/10 overflow-hidden shadow-2xl">
+          <CardContent className="p-8 md:p-10">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentNiche}
@@ -64,12 +64,12 @@ export const ExpertiseTypewriter = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5 }}
-                className="flex flex-col items-start space-y-6"
+                className="flex flex-col items-start space-y-8"
               >
                 <div className="flex w-full items-start justify-between">
                   <Badge
                     variant="secondary"
-                    className="px-4 py-2 text-lg capitalize"
+                    className="px-5 py-2.5 text-xl capitalize bg-gray-950/60 animate-glow rounded-full"
                   >
                     {currentNiche.replace(/-/g, ' ')}
                   </Badge>
@@ -90,14 +90,14 @@ export const ExpertiseTypewriter = () => {
                   </AnimatePresence>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="flex flex-wrap items-center gap-3">
                   <p
-                    className="inline text-xl leading-relaxed text-foreground/90"
+                    className="inline text-2xl md:text-3xl leading-relaxed md:leading-[1.6] text-foreground"
                     dangerouslySetInnerHTML={{
                       __html:
                         highlightText(displayText) +
                         (showCursor
-                          ? '<span class="inline-block w-0.5 h-6 bg-primary ml-2 align-middle"></span>'
+                          ? '<span class="inline-block w-0.5 h-8 bg-foreground ml-2 align-middle"></span>'
                           : ''),
                     }}
                   />

@@ -1,7 +1,7 @@
 import ParticleField from '@/components/ParticleField'
 import { ThemeProvider } from '@/components/theme-provider'
 
-import './globals.css'
+import '@/app/globals.css'
 
 export default function RootLayout({
   children,
@@ -9,17 +9,30 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="antialiased scroll-smooth">
+    <html
+      lang="en"
+      className="antialiased scroll-smooth"
+      suppressHydrationWarning
+    >
       <body className="overscroll-none">
+        <div
+          className="fixed inset-0 -z-30 bg-cover bg-center bg-no-repeat animate-ken-burns"
+          style={{
+            backgroundImage: 'url(/images/bg.png)',
+            backgroundSize: 'cover',
+            filter: 'brightness(0.7) contrast(1.2)',
+            transformOrigin: 'center center',
+          }}
+        />
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
           {children}
+          <ParticleField />
         </ThemeProvider>
-        <ParticleField />
       </body>
     </html>
   )

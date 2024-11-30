@@ -48,7 +48,7 @@ export const useHighlightText = (technologies: readonly string[]) => {
       const after = highlightedText.slice(match.index + match.length)
       highlightedText =
         before +
-        `<span style="background-color: ${match.color}; border-radius: 0.2em; padding: 0.1em 0.3em; font-weight: 500; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);">${match.text}</span>` +
+        `<span style="background-color: ${match.color}; border-radius: 0.2em; padding: 0.1em 0.3em; margin: 0 0.05em; font-weight: 500; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);">${match.text}</span>` +
         after
     })
 
