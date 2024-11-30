@@ -69,7 +69,7 @@ export const ExpertiseTypewriter = () => {
                 <div className="flex w-full items-start justify-between">
                   <Badge
                     variant="secondary"
-                    className="px-5 py-2.5 text-xl capitalize bg-gray-950/60 animate-glow rounded-full"
+                    className="px-5 py-2.5 text-lg capitalize bg-gray-950/60 animate-glow rounded-full"
                   >
                     {currentNiche.replace(/-/g, ' ')}
                   </Badge>
@@ -92,7 +92,7 @@ export const ExpertiseTypewriter = () => {
 
                 <div className="flex flex-wrap items-center gap-3">
                   <p
-                    className="inline text-2xl md:text-3xl leading-relaxed md:leading-[1.6] text-foreground"
+                    className="inline text-xl md:text-3xl leading-relaxed md:leading-[1.6] text-foreground"
                     dangerouslySetInnerHTML={{
                       __html:
                         highlightText(displayText) +
