@@ -15,7 +15,7 @@ export function TellMeMoreButton() {
       <Button
         variant="default"
         size="sm"
-        className="relative text-sm font-medium text-primary hover:text-primary/90"
+        className="relative text-sm font-bold"
         onClick={() => window.open('https://meet.aloshy.ai', '_blank')}
       >
         Tell me more about it!
