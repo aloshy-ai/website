@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from 'react'
 
+import ParticleField from '@/components/ParticleField'
+
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
 function CoverImage() {
@@ -58,6 +60,7 @@ export const BackgroundBeams = ({
       className="relative overflow-hidden rounded-md bg-slate-900 px-8 py-16 shadow-2xl before:pointer-events-none before:absolute before:inset-0 before:z-0 before:bg-[radial-gradient(circle_at_var(--mouse-x,_50%)_var(--mouse-y,_50%),rgba(255,182,255,0.1)_0%,rgba(255,182,255,0.05)_25%,transparent_50%)] before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100"
     >
       <CoverImage />
+      <ParticleField />
       <CoverMatte />
       <div className="relative z-10">{children}</div>
     </div>

@@ -20,7 +20,7 @@ export default function ParticleField() {
 
   return (
     <Particles
-      className="fixed inset-0 -z-10 animate-float"
+      className="fixed inset-0 animate-float"
       id="tsparticles"
       init={particlesInit}
       loaded={particlesLoaded}
