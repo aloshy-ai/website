@@ -1,70 +1,67 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 
-import { cn } from '@/lib/utils'
+// import ParticleField from '@/components/ParticleField'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 
-export const BackgroundBeams = ({ className }: { className?: string }) => {
-  // Array of SVG paths that create the beam effect
-  const paths = [
-    'M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875',
-    'M-373 -197C-373 -197 -305 208 159 335C623 462 691 867 691 867',
-    'M-366 -205C-366 -205 -298 200 166 327C630 454 698 859 698 859',
-    'M-359 -213C-359 -213 -291 192 173 319C637 446 705 851 705 851',
-    'M-352 -221C-352 -221 -284 184 180 311C644 438 712 843 712 843',
-    'M-345 -229C-345 -229 -277 176 187 303C651 430 719 835 719 835',
-    'M-338 -237C-338 -237 -270 168 194 295C658 422 726 827 726 827',
-    'M-331 -245C-331 -245 -263 160 201 287C665 414 733 819 733 819',
-    'M-324 -253C-324 -253 -256 152 208 279C672 406 740 811 740 811',
-  ]
+function CoverImage() {
+  return (
+    <div
+      className="fixed inset-0 bg-cover bg-center bg-no-repeat animate-ken-burns opacity-10"
+      style={{
+        backgroundImage: 'url(/images/bg.png)',
+        backgroundSize: 'cover',
+        filter: 'brightness(0.5) contrast(2)',
+        transformOrigin: 'center center',
+      }}
+    />
+  )
+}
+
+function CoverMatte() {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_800px_at_100%_200px,rgba(255,182,255,0.1),transparent_80%)]" />
+  )
+}
+
+export const BackgroundBeams = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const mouseX = useRef(0)
+  const mouseY = useRef(0)
+  const prefersReducedMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (prefersReducedMotion) return
+
+    const container = containerRef.current
+    if (!container) return
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect()
+      mouseX.current = e.clientX - rect.left
+      mouseY.current = e.clientY - rect.top
+      container.style.setProperty('--mouse-x', `${mouseX.current}px`)
+      container.style.setProperty('--mouse-y', `${mouseY.current}px`)
+    }
+
+    container.addEventListener('mousemove', handleMouseMove)
+    return () => container.removeEventListener('mousemove', handleMouseMove)
+  }, [prefersReducedMotion])
 
   return (
-    <div className={cn('h-full w-full relative overflow-hidden', className)}>
-      {/* Dark background with subtle gradient */}
-      <div className="bg-neutral-950 w-full h-full absolute inset-0">
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 to-neutral-900 opacity-80" />
-
-        {/* SVG container */}
-        <svg
-          className="absolute inset-0 w-full h-full z-0"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g>
-            {paths.map((path, index) => (
-              <motion.path
-                key={index}
-                d={path}
-                stroke="currentColor"
-                className="text-neutral-800/20"
-                strokeWidth="1"
-                fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{
-                  pathLength: 1,
-                  opacity: 0.3,
-                  transition: {
-                    duration: 4,
-                    delay: index * 0.2,
-                    repeat: Infinity,
-                    repeatType: 'loop',
-                    ease: 'linear',
-                  },
-                }}
-              />
-            ))}
-          </g>
-        </svg>
-
-        {/* Radial gradient mask */}
-        <div className="absolute inset-0 w-full h-full bg-neutral-950 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
-      </div>
-
-      {/* Content container */}
-      <div className="relative z-10 w-full h-full">
-        <div className="absolute top-1/2 h-48 w-full translate-y-12 scale-x-150 bg-neutral-950 blur-2xl" />
-        <div className="absolute top-1/2 z-50 h-48 w-full bg-transparent opacity-10 backdrop-blur-md" />
-      </div>
+    <div
+      ref={containerRef}
+      className="relative overflow-hidden rounded-md bg-slate-900 px-8 py-16 shadow-2xl before:pointer-events-none before:absolute before:inset-0 before:z-0 before:bg-[radial-gradient(circle_at_var(--mouse-x,_50%)_var(--mouse-y,_50%),rgba(255,182,255,0.1)_0%,rgba(255,182,255,0.05)_25%,transparent_50%)] before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100"
+    >
+      <CoverImage />
+      {/* <ParticleField /> */}
+      <CoverMatte />
+      {children}
     </div>
   )
 }
