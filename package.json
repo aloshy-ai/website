@@ -1,7 +1,7 @@
 {
-  "name": "@aloshy-ai/vercel-url-shortner",
+  "name": "@aloshy-ai/website",
   "version": "0.1.0",
-  "description": "A modern, fast, and minimalist URL shortening service built with Next.js 15 deployable to Vercel with one click",
+  "description": "The official website",
   "author": "aloshy-ai",
   "license": "MIT",
   "private": false,
@@ -72,10 +72,10 @@
     ]
   },
   "keywords": [
-    "url-shortener",
+    "aloshy-ai",
+    "website",
     "nextjs",
     "typescript",
-    "shadcn-ui",
-    "vercel"
+    "shadcn-ui"
   ]
 }

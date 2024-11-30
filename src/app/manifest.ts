@@ -2,9 +2,9 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'URL Shortener',
-    short_name: 'URL Shortener',
-    description: 'A modern, fast, and minimalist URL shortening service',
+    name: 'aloshy.ai',
+    short_name: 'aloshy.ai',
+    description: 'The official website',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',

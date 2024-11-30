@@ -1,9 +1,8 @@
 import { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
-  title: 'URL Shortener',
-  description:
-    'A modern, fast, and minimalist URL shortening service built with Next.js 15',
+  title: 'aloshy.ai',
+  description: 'The official website',
   icons: {
     apple: [
       { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
