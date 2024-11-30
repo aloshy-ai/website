@@ -55,7 +55,7 @@ export const ExpertiseTypewriter = () => {
           layout: { duration: 0.03, ease: 'easeOut' },
         }}
       >
-        <Card className="relative border-muted bg-black/75 backdrop-blur-sm">
+        <Card className="relative border-0 bg-gray-950/30 backdrop-blur-md ring-1 ring-white/10 overflow-hidden shadow-2xl">
           <CardContent className="p-6 md:p-8">
             <AnimatePresence mode="wait">
               <motion.div

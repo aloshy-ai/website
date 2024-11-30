@@ -62,14 +62,18 @@ export default {
           '100%': { transform: 'scale(0.95)', opacity: '0.8' },
         },
         gradient: {
-          '0%': { backgroundPosition: '0% 50%' },
+          '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
-          '100%': { backgroundPosition: '0% 50%' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
         },
       },
       animation: {
         'pulse-ring': 'pulse-ring 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         gradient: 'gradient 15s ease infinite',
+        float: 'float 6s ease-in-out infinite',
       },
     },
   },

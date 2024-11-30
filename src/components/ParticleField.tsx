@@ -20,7 +20,7 @@ export default function ParticleField() {
 
   return (
     <Particles
-      className="fixed inset-0 -z-10"
+      className="fixed inset-0 -z-10 animate-float"
       id="tsparticles"
       init={particlesInit}
       loaded={particlesLoaded}
@@ -50,6 +50,9 @@ export default function ParticleField() {
             repulse: {
               distance: 200,
               duration: 0.4,
+              speed: 1,
+              factor: 100,
+              easing: 'ease-out-quad',
             },
           },
         },
@@ -71,11 +74,17 @@ export default function ParticleField() {
             direction: 'none',
             enable: true,
             outModes: {
-              default: 'bounce',
+              default: 'out',
             },
-            random: false,
-            speed: 1,
+            random: true,
+            speed: 0.8,
             straight: false,
+            bounce: false,
+            attract: {
+              enable: true,
+              rotateX: 600,
+              rotateY: 1200,
+            },
           },
           number: {
             density: {
@@ -85,7 +94,14 @@ export default function ParticleField() {
             value: 80,
           },
           opacity: {
-            value: 0.5,
+            value: 0.4,
+            random: true,
+            anim: {
+              enable: true,
+              speed: 0.5,
+              opacity_min: 0.1,
+              sync: false,
+            },
           },
           shape: {
             type: 'circle',

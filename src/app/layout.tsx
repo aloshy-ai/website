@@ -9,9 +9,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head />
-      <body>
+    <html lang="en" className="antialiased scroll-smooth">
+      <body className="overscroll-none">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
