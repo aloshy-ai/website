@@ -1,4 +1,3 @@
-import ParticleField from '@/components/ParticleField'
 import { ThemeProvider } from '@/components/theme-provider'
 import { BackgroundBeams } from '@/components/ui/background-beams'
 
@@ -16,15 +15,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="overscroll-none">
-        <div
-          className="fixed inset-0 -z-30 bg-cover bg-center bg-no-repeat animate-ken-burns"
-          style={{
-            backgroundImage: 'url(/images/bg.png)',
-            backgroundSize: 'cover',
-            filter: 'brightness(0.7) contrast(1.2)',
-            transformOrigin: 'center center',
-          }}
-        />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -32,10 +22,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <BackgroundBeams>
-            <div className="relative min-h-screen w-full">
-              <ParticleField />
-              {children}
-            </div>
+            <main className="relative min-h-screen w-full">{children}</main>
           </BackgroundBeams>
         </ThemeProvider>
       </body>

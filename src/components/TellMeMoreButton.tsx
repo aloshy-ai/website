@@ -13,12 +13,12 @@ export function TellMeMoreButton() {
       className="inline-flex items-center"
     >
       <Button
-        variant="ghost"
+        variant="secondary"
         size="sm"
-        className="relative text-sm font-medium text-foreground hover:text-foreground/90"
+        className="relative text-xs font-bold text-muted-foreground hover:text-muted-foreground/90 uppercase"
         onClick={() => window.open('https://meet.aloshy.ai', '_blank')}
       >
-        Tell me more about it!
+        Tell me more
         <div className="absolute inset-0 ring-2 ring-foreground/20 rounded-sm animate-pulse-ring" />
       </Button>
     </motion.div>
