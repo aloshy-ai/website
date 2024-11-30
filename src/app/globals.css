@@ -80,3 +80,165 @@ body {
 .ios-card {
   box-shadow: var(--shadow-elevation-medium);
 }
+
+.scroll {
+  display: flex;
+  animation: scroll 20s linear infinite;
+}
+
+.scroll > div {
+  white-space: nowrap;
+  margin-right: 30px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll {
+    animation-play-state: paused;
+  }
+}
+
+.ticker {
+  width: 100%;
+  display: flex;
+}
+
+.ticker-item {
+  white-space: nowrap;
+  animation: ticker 12s linear infinite;
+  animation-delay: -12s;
+}
+
+.ticker-item:nth-child(2) {
+  animation: ticker2 12s linear infinite;
+  animation-delay: -6s;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes ticker2 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-item {
+    animation-play-state: paused;
+  }
+}
+
+@layer utilities {
+  .animate-ticker {
+    animation: ticker linear infinite;
+  }
+
+  .animate-ticker2 {
+    animation: ticker2 linear infinite;
+  }
+
+  .text-stroke {
+    -webkit-text-stroke: 2px currentColor;
+    color: transparent;
+  }
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes ticker2 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ticker,
+  .animate-ticker2 {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 8s ease infinite;
+}
+
+.bg-grid-white {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H16V16H0V0Z' fill='white' fill-opacity='0.1'/%3E%3C/svg%3E");
+}
+
+.bg-grid-16 {
+  background-size: 16px 16px;
+}
+
+.bg-scanlines {
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 0.5px,
+    transparent 1px
+  );
+  background-size: 100% 2px;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+  paint-order: stroke fill;
+}
+
+@media (min-width: 768px) {
+  .text-stroke {
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.5);
+  }
+}
+
+.text-stroke-only {
+  -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.3);
+  color: transparent;
+}
+
+@media (min-width: 768px) {
+  .text-stroke-only {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+  }
+}
