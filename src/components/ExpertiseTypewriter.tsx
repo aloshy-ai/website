@@ -1,17 +1,19 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import React, { useEffect, useMemo, useState } from 'react';
+
+import { AnimatePresence, motion } from 'framer-motion';
+
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 
 const BeatLoader = () => {
   return (
     <div className="flex space-x-1">
-      {[0, 1, 2].map((index) => (
+      {[0, 1, 2].map(index => (
         <motion.div
           key={index}
-          className="w-2 h-2 rounded-full bg-primary"
+          className="h-2 w-2 rounded-full bg-primary"
           animate={{
             scale: [1, 1.5, 1],
             opacity: [0.5, 1, 0.5],
@@ -20,7 +22,7 @@ const BeatLoader = () => {
             duration: 0.8,
             repeat: Infinity,
             delay: index * 0.25,
-            ease: "easeInOut",
+            ease: 'easeInOut',
           }}
         />
       ))}
@@ -29,36 +31,36 @@ const BeatLoader = () => {
 };
 
 export const ExpertiseTypewriter = () => {
-  const [currentNiche, setCurrentNiche] = useState("frontend");
-  const [displayText, setDisplayText] = useState("");
+  const [currentNiche, setCurrentNiche] = useState('frontend');
+  const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
 
   const technologies = useMemo(
     () => [
-      "React.js",
-      "Next.js",
-      "TypeScript",
-      "TailwindCSS",
-      "Node.js",
-      "Framer Motion",
-      "ShadcnUI",
-      "PostgreSQL",
-      "MongoDB",
-      "Redis",
-      "GraphQL",
-      "REST APIs",
-      "AWS",
-      "Vercel",
-      "Docker",
-      "Jest",
-      "Playwright",
-      "Git",
-      "CI/CD",
-      "Agile",
+      'React.js',
+      'Next.js',
+      'TypeScript',
+      'TailwindCSS',
+      'Node.js',
+      'Framer Motion',
+      'ShadcnUI',
+      'PostgreSQL',
+      'MongoDB',
+      'Redis',
+      'GraphQL',
+      'REST APIs',
+      'AWS',
+      'Vercel',
+      'Docker',
+      'Jest',
+      'Playwright',
+      'Git',
+      'CI/CD',
+      'Agile',
     ],
-    [],
+    []
   );
 
   const techColors = useMemo(() => {
@@ -76,13 +78,13 @@ export const ExpertiseTypewriter = () => {
   const expertiseContent = useMemo(
     () => ({
       frontend:
-        "Specialized in building modern web applications using React.js and Next.js, with a focus on performance and user experience. Proficient in creating responsive designs using TailwindCSS and adding smooth animations with Framer Motion.",
+        'Specialized in building modern web applications using React.js and Next.js, with a focus on performance and user experience. Proficient in creating responsive designs using TailwindCSS and adding smooth animations with Framer Motion.',
       backend:
-        "Experienced in developing robust backend systems using Node.js and various databases like PostgreSQL and MongoDB. Skilled in implementing RESTful APIs and GraphQL endpoints with proper security measures.",
+        'Experienced in developing robust backend systems using Node.js and various databases like PostgreSQL and MongoDB. Skilled in implementing RESTful APIs and GraphQL endpoints with proper security measures.',
       development:
-        "Committed to writing clean, maintainable code following best practices. Experienced with test-driven development using Jest and Playwright, and implementing CI/CD pipelines for automated deployments.",
+        'Committed to writing clean, maintainable code following best practices. Experienced with test-driven development using Jest and Playwright, and implementing CI/CD pipelines for automated deployments.',
     }),
-    [],
+    []
   );
 
   const highlightText = (text: string) => {
@@ -94,8 +96,8 @@ export const ExpertiseTypewriter = () => {
       color: string;
     }> = [];
 
-    technologies.forEach((tech) => {
-      const regex = new RegExp(`(${tech})`, "gi");
+    technologies.forEach(tech => {
+      const regex = new RegExp(`(${tech})`, 'gi');
       let match;
       while ((match = regex.exec(text)) !== null) {
         matches.push({
@@ -109,7 +111,7 @@ export const ExpertiseTypewriter = () => {
 
     matches.sort((a, b) => b.index - a.index);
 
-    matches.forEach((match) => {
+    matches.forEach(match => {
       const before = highlightedText.slice(0, match.index);
       const after = highlightedText.slice(match.index + match.length);
       highlightedText =
@@ -123,7 +125,7 @@ export const ExpertiseTypewriter = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setShowCursor((prev) => !prev);
+      setShowCursor(prev => !prev);
     }, 530);
 
     return () => clearInterval(interval);
@@ -137,15 +139,15 @@ export const ExpertiseTypewriter = () => {
     if (isTyping && currentIndex < text.length) {
       const randomDelay = Math.random() * 40 + 60;
       const currentChar = text[currentIndex];
-      const extraDelay = [".", ",", "!", "?"].includes(currentChar)
+      const extraDelay = ['.', ',', '!', '?'].includes(currentChar)
         ? 400
-        : [" "].includes(currentChar)
+        : [' '].includes(currentChar)
           ? 200
           : 0;
 
       timeoutId = setTimeout(() => {
-        setDisplayText((prev) => prev + text[currentIndex]);
-        setCurrentIndex((prev) => prev + 1);
+        setDisplayText(prev => prev + text[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
       }, randomDelay + extraDelay);
     } else if (isTyping && currentIndex >= text.length) {
       timeoutId = setTimeout(() => {
@@ -153,20 +155,20 @@ export const ExpertiseTypewriter = () => {
         const currentNicheIndex = niches.indexOf(currentNiche);
         const nextNiche = niches[(currentNicheIndex + 1) % niches.length];
 
-        setDisplayText("");
+        setDisplayText('');
         setCurrentNiche(nextNiche);
         setCurrentIndex(0);
       }, 6000);
-    } else if (displayText === "") {
+    } else if (displayText === '') {
       setIsTyping(true);
     }
 
     return () => clearTimeout(timeoutId);
-  }, [currentNiche, displayText, isTyping, currentIndex, expertiseContent]);
+  }, [currentNiche, displayText, isTyping, currentIndex]); // Removed expertiseContent from dependencies
 
   return (
-    <div className="w-full p-4 md:p-8 flex items-center justify-center min-h-[calc(100vh-4rem)]">
-      <Card className="w-full max-w-4xl bg-card/50 backdrop-blur-sm shadow-lg border-muted">
+    <div className="flex min-h-[calc(100vh-4rem)] w-full items-center justify-center p-4 md:p-8">
+      <Card className="w-full max-w-4xl border-muted bg-card/50 shadow-lg backdrop-blur-sm">
         <CardContent className="p-6 md:p-8">
           <AnimatePresence mode="wait">
             <motion.div
@@ -177,12 +179,12 @@ export const ExpertiseTypewriter = () => {
               transition={{ duration: 0.5 }}
               className="flex flex-col items-start space-y-6"
             >
-              <div className="w-full flex items-center justify-between">
+              <div className="flex w-full items-center justify-between">
                 <Badge
                   variant="secondary"
-                  className="text-lg px-4 py-2 capitalize"
+                  className="px-4 py-2 text-lg capitalize"
                 >
-                  {currentNiche.replace(/-/g, " ")}
+                  {currentNiche.replace(/-/g, ' ')}
                 </Badge>
 
                 <AnimatePresence>
@@ -210,7 +212,7 @@ export const ExpertiseTypewriter = () => {
                     highlightText(displayText) +
                     (showCursor
                       ? '<span class="inline-block w-0.5 h-6 bg-primary ml-1 align-middle"></span>'
-                      : ""),
+                      : ''),
                 }}
               />
             </motion.div>

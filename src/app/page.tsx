@@ -1,4 +1,4 @@
-import { ExpertiseTypewriter } from "@/components/ExpertiseTypewriter";
+import { ExpertiseTypewriter } from '@/components/ExpertiseTypewriter';
 
 export default function Home() {
   return (
