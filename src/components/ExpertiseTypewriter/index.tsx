@@ -2,12 +2,12 @@
 
 import { AnimatePresence, motion } from 'framer-motion'
 
+import { BeatLoader } from '@/components/ExpertiseTypewriter/BeatLoader'
+import { useHighlightText } from '@/components/ExpertiseTypewriter/hooks/useHighlightText'
+import { useTechnologies } from '@/components/ExpertiseTypewriter/hooks/useTechnologies'
+import { useTypewriter } from '@/components/ExpertiseTypewriter/hooks/useTypewriter'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
-
-import { BeatLoader } from './BeatLoader'
-import { useHighlightText } from './hooks/useHighlightText'
-import { useTypewriter } from './hooks/useTypewriter'
 
 export const ExpertiseTypewriter = () => {
   const {
@@ -16,11 +16,21 @@ export const ExpertiseTypewriter = () => {
     isTyping,
     currentIndex,
     showCursor,
-    isLoading,
-    error,
+    isLoading: isLoadingContent,
+    error: contentError,
     content,
   } = useTypewriter()
-  const { highlightText } = useHighlightText()
+
+  const {
+    technologies,
+    isLoading: isLoadingTech,
+    error: techError,
+  } = useTechnologies()
+
+  const { highlightText } = useHighlightText(technologies)
+
+  const error = contentError || techError
+  const isLoading = isLoadingContent || isLoadingTech
 
   if (error) {
     return (

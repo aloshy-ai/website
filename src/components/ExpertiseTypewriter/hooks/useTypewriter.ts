@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react'
 
+import type { NicheType } from '@/components/ExpertiseTypewriter/types'
+
 import { fetchApi } from '@/lib/api-utils'
 
 import type { ExpertiseGenerateResponse } from '@/app/api/expertise/generate/route'
-
-import type { NicheType } from '../types'
 
 export const useTypewriter = () => {
   const [currentNiche, setCurrentNiche] = useState<NicheType>('frontend')

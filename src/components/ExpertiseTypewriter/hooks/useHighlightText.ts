@@ -2,12 +2,11 @@
 
 import { useMemo } from 'react'
 
-import { TECHNOLOGIES } from '../constants'
-import type { TechColor } from '../types'
+import type { TechColor } from '@/components/ExpertiseTypewriter/types'
 
-export const useHighlightText = () => {
+export const useHighlightText = (technologies: readonly string[]) => {
   const techColors = useMemo(() => {
-    return TECHNOLOGIES.reduce<TechColor>((acc, tech) => {
+    return technologies.reduce<TechColor>((acc, tech) => {
       const hue = Math.floor(Math.random() * 360)
       const saturation = 60 + Math.random() * 20
       const lightness = 45 + Math.random() * 10
@@ -16,9 +15,11 @@ export const useHighlightText = () => {
         `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`
       return acc
     }, {})
-  }, [])
+  }, [technologies])
 
   const highlightText = (text: string) => {
+    if (!technologies.length) return text
+
     let highlightedText = text
     const matches: Array<{
       text: string
@@ -27,7 +28,7 @@ export const useHighlightText = () => {
       color: string
     }> = []
 
-    TECHNOLOGIES.forEach(tech => {
+    technologies.forEach(tech => {
       const regex = new RegExp(`(${tech})`, 'gi')
       let match
       while ((match = regex.exec(text)) !== null) {
