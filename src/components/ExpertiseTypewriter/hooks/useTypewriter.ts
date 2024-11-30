@@ -17,6 +17,7 @@ export const useTypewriter = () => {
   const [content, setContent] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isComplete, setIsComplete] = useState(false)
 
   const fetchNextExpertise = async () => {
     try {
@@ -67,9 +68,13 @@ export const useTypewriter = () => {
       timeoutId = setTimeout(() => {
         setDisplayText(prev => prev + content[currentIndex])
         setCurrentIndex(prev => prev + 1)
+        if (currentIndex === content.length - 1) {
+          setIsComplete(true)
+        }
       }, randomDelay + extraDelay)
     } else if (isTyping && currentIndex >= content.length) {
       timeoutId = setTimeout(() => {
+        setIsComplete(false)
         fetchNextExpertise()
       }, 6000)
     } else if (displayText === '') {
@@ -88,5 +93,6 @@ export const useTypewriter = () => {
     isLoading,
     error,
     content,
+    isComplete,
   }
 }

@@ -8,9 +8,9 @@ export const useHighlightText = (technologies: readonly string[]) => {
   const techColors = useMemo(() => {
     return technologies.reduce<TechColor>((acc, tech) => {
       const hue = Math.floor(Math.random() * 360)
-      const saturation = 60 + Math.random() * 20
-      const lightness = 45 + Math.random() * 10
-      const alpha = 0.3
+      const saturation = 80 + Math.random() * 20
+      const lightness = 65 + Math.random() * 10
+      const alpha = 0.4
       acc[tech.toLowerCase()] =
         `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`
       return acc
@@ -48,7 +48,7 @@ export const useHighlightText = (technologies: readonly string[]) => {
       const after = highlightedText.slice(match.index + match.length)
       highlightedText =
         before +
-        `<span style="background-color: ${match.color}; border-radius: 0.2em; padding: 0.1em 0.3em; font-weight: 500; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">${match.text}</span>` +
+        `<span style="background-color: ${match.color}; border-radius: 0.2em; padding: 0.1em 0.3em; font-weight: 500; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);">${match.text}</span>` +
         after
     })
 

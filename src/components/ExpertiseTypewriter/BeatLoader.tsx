@@ -8,7 +8,7 @@ export const BeatLoader = () => {
       {[0, 1, 2].map(index => (
         <motion.div
           key={index}
-          className="h-2 w-2 rounded-full bg-primary"
+          className="h-2 w-2 rounded-full bg-white"
           animate={{
             scale: [1, 1.5, 1],
             opacity: [0.5, 1, 0.5],

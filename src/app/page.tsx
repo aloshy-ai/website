@@ -1,9 +1,16 @@
-import { ExpertiseTypewriter } from '@/components/ExpertiseTypewriter'
+'use client'
 
-export default function Home() {
+import { ExpertiseTypewriter } from '@/components/ExpertiseTypewriter'
+import ParticleField from '@/components/ParticleField'
+
+export default function Page() {
   return (
-    <main className="min-h-screen bg-background">
-      <ExpertiseTypewriter />
+    <main className="relative flex min-h-screen flex-col items-center justify-center p-4">
+      <div className="absolute inset-0 -z-20 bg-gradient-to-tl from-gray-800 via-blue-700 to-gray-900 animate-gradient bg-[length:200%_200%]" />
+      <ParticleField />
+      <div className="relative w-full max-w-4xl">
+        <ExpertiseTypewriter />
+      </div>
     </main>
   )
 }

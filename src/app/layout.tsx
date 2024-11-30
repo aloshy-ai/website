@@ -1,3 +1,4 @@
+import ParticleField from '@/components/ParticleField'
 import { ThemeProvider } from '@/components/theme-provider'
 
 import './globals.css'
@@ -19,6 +20,7 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        <ParticleField />
       </body>
     </html>
   )
