@@ -1,5 +1,6 @@
 import ParticleField from '@/components/ParticleField'
 import { ThemeProvider } from '@/components/theme-provider'
+import { BackgroundBeams } from '@/components/ui/background-beams'
 
 import '@/app/globals.css'
 
@@ -30,8 +31,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <ParticleField />
+          <BackgroundBeams>
+            <div className="relative min-h-screen w-full">
+              <ParticleField />
+              {children}
+            </div>
+          </BackgroundBeams>
         </ThemeProvider>
       </body>
     </html>
