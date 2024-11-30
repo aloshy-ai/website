@@ -35,14 +35,22 @@ export async function createResponse<T>(
 
 export async function fetchApi<T>(url: string): Promise<T> {
   const response = await fetch(url)
+
+  if (!response.ok) {
+    throw new ApiError(
+      `HTTP error! status: ${response.status}`,
+      response.status
+    )
+  }
+
   const json = (await response.json()) as ApiResponse<T>
 
   if (json.error) {
-    throw new Error(json.error)
+    throw new ApiError(json.error)
   }
 
   if (!json.data) {
-    throw new Error('No data received')
+    throw new ApiError('No data received')
   }
 
   return json.data

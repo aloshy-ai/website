@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import type { NicheType } from '@/components/ExpertiseTypewriter/types'
 
@@ -19,7 +19,7 @@ export const useTypewriter = () => {
   const [error, setError] = useState<string | null>(null)
   const [isComplete, setIsComplete] = useState(false)
 
-  const fetchNextExpertise = async () => {
+  const fetchNextExpertise = useCallback(async () => {
     try {
       setIsLoading(true)
       setError(null)
@@ -36,12 +36,12 @@ export const useTypewriter = () => {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [])
 
   useEffect(() => {
     // Initial fetch
     fetchNextExpertise()
-  }, [])
+  }, [fetchNextExpertise])
 
   useEffect(() => {
     const interval = setInterval(() => {
