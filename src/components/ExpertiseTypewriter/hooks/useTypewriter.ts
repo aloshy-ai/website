@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from 'react'
 
-import { EXPERTISE_CONTENT } from '../constants'
+import { fetchApi } from '@/lib/api-utils'
+
+import type { ExpertiseGenerateResponse } from '@/app/api/expertise/generate/route'
+
 import type { NicheType } from '../types'
 
 export const useTypewriter = () => {
@@ -11,6 +14,33 @@ export const useTypewriter = () => {
   const [isTyping, setIsTyping] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showCursor, setShowCursor] = useState(true)
+  const [content, setContent] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchNextExpertise = async () => {
+    try {
+      setIsLoading(true)
+      setError(null)
+
+      const data = await fetchApi<ExpertiseGenerateResponse>(
+        '/api/expertise/generate'
+      )
+      setCurrentNiche(data.niche)
+      setContent(data.content)
+      setDisplayText('')
+      setCurrentIndex(0)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    // Initial fetch
+    fetchNextExpertise()
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -21,12 +51,13 @@ export const useTypewriter = () => {
   }, [])
 
   useEffect(() => {
-    const text = EXPERTISE_CONTENT[currentNiche]
+    if (!content || isLoading) return
+
     let timeoutId: NodeJS.Timeout
 
-    if (isTyping && currentIndex < text.length) {
+    if (isTyping && currentIndex < content.length) {
       const randomDelay = Math.random() * 40 + 60
-      const currentChar = text[currentIndex]
+      const currentChar = content[currentIndex]
       const extraDelay = ['.', ',', '!', '?'].includes(currentChar)
         ? 400
         : [' '].includes(currentChar)
@@ -34,25 +65,19 @@ export const useTypewriter = () => {
           : 0
 
       timeoutId = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex])
+        setDisplayText(prev => prev + content[currentIndex])
         setCurrentIndex(prev => prev + 1)
       }, randomDelay + extraDelay)
-    } else if (isTyping && currentIndex >= text.length) {
+    } else if (isTyping && currentIndex >= content.length) {
       timeoutId = setTimeout(() => {
-        const niches = Object.keys(EXPERTISE_CONTENT) as NicheType[]
-        const currentNicheIndex = niches.indexOf(currentNiche)
-        const nextNiche = niches[(currentNicheIndex + 1) % niches.length]
-
-        setDisplayText('')
-        setCurrentNiche(nextNiche)
-        setCurrentIndex(0)
+        fetchNextExpertise()
       }, 6000)
     } else if (displayText === '') {
       setIsTyping(true)
     }
 
     return () => clearTimeout(timeoutId)
-  }, [currentNiche, displayText, isTyping, currentIndex])
+  }, [content, displayText, isTyping, currentIndex, isLoading])
 
   return {
     currentNiche,
@@ -60,5 +85,8 @@ export const useTypewriter = () => {
     isTyping,
     currentIndex,
     showCursor,
+    isLoading,
+    error,
+    content,
   }
 }
