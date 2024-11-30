@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react'
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion'
 
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent } from '@/components/ui/card'
 
 const BeatLoader = () => {
   return (
@@ -27,15 +27,15 @@ const BeatLoader = () => {
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
 export const ExpertiseTypewriter = () => {
-  const [currentNiche, setCurrentNiche] = useState('frontend');
-  const [displayText, setDisplayText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [showCursor, setShowCursor] = useState(true);
+  const [currentNiche, setCurrentNiche] = useState('frontend')
+  const [displayText, setDisplayText] = useState('')
+  const [isTyping, setIsTyping] = useState(true)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [showCursor, setShowCursor] = useState(true)
 
   const technologies = useMemo(
     () => [
@@ -61,19 +61,19 @@ export const ExpertiseTypewriter = () => {
       'Agile',
     ],
     []
-  );
+  )
 
   const techColors = useMemo(() => {
     return technologies.reduce<Record<string, string>>((acc, tech) => {
-      const hue = Math.floor(Math.random() * 360);
-      const saturation = 60 + Math.random() * 20;
-      const lightness = 45 + Math.random() * 10;
-      const alpha = 0.3;
+      const hue = Math.floor(Math.random() * 360)
+      const saturation = 60 + Math.random() * 20
+      const lightness = 45 + Math.random() * 10
+      const alpha = 0.3
       acc[tech.toLowerCase()] =
-        `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
-      return acc;
-    }, {});
-  }, [technologies]);
+        `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`
+      return acc
+    }, {})
+  }, [technologies])
 
   const expertiseContent = useMemo(
     () => ({
@@ -85,86 +85,85 @@ export const ExpertiseTypewriter = () => {
         'Committed to writing clean, maintainable code following best practices. Experienced with test-driven development using Jest and Playwright, and implementing CI/CD pipelines for automated deployments.',
     }),
     []
-  );
+  )
 
   const highlightText = (text: string) => {
-    let highlightedText = text;
+    let highlightedText = text
     const matches: Array<{
-      text: string;
-      index: number;
-      length: number;
-      color: string;
-    }> = [];
+      text: string
+      index: number
+      length: number
+      color: string
+    }> = []
 
     technologies.forEach(tech => {
-      const regex = new RegExp(`(${tech})`, 'gi');
-      let match;
+      const regex = new RegExp(`(${tech})`, 'gi')
+      let match
       while ((match = regex.exec(text)) !== null) {
         matches.push({
           text: match[0],
           index: match.index,
           length: match[0].length,
           color: techColors[tech.toLowerCase()],
-        });
+        })
       }
-    });
+    })
 
-    matches.sort((a, b) => b.index - a.index);
+    matches.sort((a, b) => b.index - a.index)
 
     matches.forEach(match => {
-      const before = highlightedText.slice(0, match.index);
-      const after = highlightedText.slice(match.index + match.length);
+      const before = highlightedText.slice(0, match.index)
+      const after = highlightedText.slice(match.index + match.length)
       highlightedText =
         before +
         `<span style="background-color: ${match.color}; border-radius: 0.2em; padding: 0.1em 0.3em; font-weight: 500; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">${match.text}</span>` +
-        after;
-    });
+        after
+    })
 
-    return highlightedText;
-  };
+    return highlightedText
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setShowCursor(prev => !prev);
-    }, 530);
+      setShowCursor(prev => !prev)
+    }, 530)
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
-    const text =
-      expertiseContent[currentNiche as keyof typeof expertiseContent];
-    let timeoutId: NodeJS.Timeout;
+    const text = expertiseContent[currentNiche as keyof typeof expertiseContent]
+    let timeoutId: NodeJS.Timeout
 
     if (isTyping && currentIndex < text.length) {
-      const randomDelay = Math.random() * 40 + 60;
-      const currentChar = text[currentIndex];
+      const randomDelay = Math.random() * 40 + 60
+      const currentChar = text[currentIndex]
       const extraDelay = ['.', ',', '!', '?'].includes(currentChar)
         ? 400
         : [' '].includes(currentChar)
           ? 200
-          : 0;
+          : 0
 
       timeoutId = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
-      }, randomDelay + extraDelay);
+        setDisplayText(prev => prev + text[currentIndex])
+        setCurrentIndex(prev => prev + 1)
+      }, randomDelay + extraDelay)
     } else if (isTyping && currentIndex >= text.length) {
       timeoutId = setTimeout(() => {
-        const niches = Object.keys(expertiseContent);
-        const currentNicheIndex = niches.indexOf(currentNiche);
-        const nextNiche = niches[(currentNicheIndex + 1) % niches.length];
+        const niches = Object.keys(expertiseContent)
+        const currentNicheIndex = niches.indexOf(currentNiche)
+        const nextNiche = niches[(currentNicheIndex + 1) % niches.length]
 
-        setDisplayText('');
-        setCurrentNiche(nextNiche);
-        setCurrentIndex(0);
-      }, 6000);
+        setDisplayText('')
+        setCurrentNiche(nextNiche)
+        setCurrentIndex(0)
+      }, 6000)
     } else if (displayText === '') {
-      setIsTyping(true);
+      setIsTyping(true)
     }
 
-    return () => clearTimeout(timeoutId);
-  }, [currentNiche, displayText, isTyping, currentIndex]); // Removed expertiseContent from dependencies
+    return () => clearTimeout(timeoutId)
+  }, [currentNiche, displayText, isTyping, currentIndex]) // Removed expertiseContent from dependencies
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)] w-full items-center justify-center p-4 md:p-8">
@@ -220,5 +219,5 @@ export const ExpertiseTypewriter = () => {
         </CardContent>
       </Card>
     </div>
-  );
-};
+  )
+}

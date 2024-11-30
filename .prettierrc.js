@@ -2,7 +2,7 @@ module.exports = {
   printWidth: 80,
   tabWidth: 2,
   useTabs: false,
-  semi: true,
+  semi: false,
   singleQuote: true,
   quoteProps: 'as-needed',
   jsxSingleQuote: false,
@@ -33,4 +33,4 @@ module.exports = {
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
-};
+}

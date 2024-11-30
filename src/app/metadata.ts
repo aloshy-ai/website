@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'URL Shortener',
@@ -13,4 +13,4 @@ export const metadata: Metadata = {
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
     ],
   },
-};
+}
